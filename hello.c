@@ -1,34 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 
-int main()
+int main(void)
 {
-
-  long nc;
-
-  while ((nc = getchar()) != EOF)
-  {
-
-      nc++;
-
-  }
-  printf("%ld\n", nc);
-  
+  printf("Hello World\n");
+  return 0;
 }
-/// @brief 
-/// @param arrSize 
-/// @return 
-int* randomArray(int arrSize)
-{
-  int randomIntArray[arrSize];
 
-   srand( (unsigned)time( NULL ) );
-   
-  for (int i = 0; i < arrSize; i++)
-  {
-    randomIntArray[i] = rand();
-  }
-  
-  return randomIntArray;
-
-}
