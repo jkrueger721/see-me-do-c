@@ -3,7 +3,8 @@
 
 int main(void)
 {
-  printf("Hello World\n");
+  int c = '3' + 0;
+  printf("%d\n", c);
   return 0;
 }
 
