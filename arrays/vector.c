@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+typedef struct
+{
+  int len;
+  int arr[];
+} vector;
+
 
 void myDynamicArr();
 
@@ -36,17 +42,19 @@ void myDynamicArr()
 
     srand(0);
 
-    for ( i = 0; i < size; i++)
+    for ( i = 0; i < size; ++i)
     {
       ptr[i] = rand();
     }
     
 
-      printf("The elements of the array are: ");
-          for (i = 0; i < size; ++i) {
-              printf("%d, ", ptr[i]);
-          }
-          printf("\n");
+    printf("The elements of the array are: ");
+        for (int j = 0; j < size; ++j) {
+            printf("%d, ", ptr[j]);
+        }
+        printf("\n");
+
+    int prevSize = size;
 
      printf("Enter size of elements:");
      scanf("%d", &size);
@@ -64,15 +72,15 @@ void myDynamicArr()
 
         printf("Memory successfully re-allocated using "
                "realloc.\n");
-        for ( ; i < size; i++)
+        for (i = prevSize; i < size; i++)
         {
           ptr[i] = rand();
         }
     }
 
      printf("The new elements of the array are: ");
-          for (int j = 0 ; j < size; ++j) {
-              printf("%d, ", ptr[i]);
+          for (int k = 0 ; k < size; ++k) {
+              printf("%d, ", ptr[k]);
           }
           printf("\n");
 
