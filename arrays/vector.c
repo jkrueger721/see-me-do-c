@@ -2,89 +2,104 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define VECTOR_INIT_CAPACITY 6
+#define UNDEFINE  -1
+#define SUCCESS 0
+
 typedef struct
 {
-  int len;
-  int arr[];
-} vector;
+  void** items;
+  int size;
+  int capacity;
+} myVectorList;
+
+typedef struct myVector vector;
+
+struct myVector{
+  myVectorList vectorList;
+
+  // function pointers
+  int (*ptrVectorSize)(vector *);
+  int (*ptrVectorIsEmpty)(vector *);
+  int (*ptrVectorCapacity)(vector *);
+  int (*ptrVectorAtIndex)(vector *);
+  void (*ptrVectorPush)(vector *);
+  void (*ptrVectorPrepend)(vector *);
+  void (*ptrVectorInsert)(vector *);
+  int (*ptrVectorPop)(vector *);
+  int (*ptrVectorDelete)(vector *);
+  void (*ptrVectorRemoveItem)(vector *);
+  int (*ptrVectorFind)(vector *);
+  int (*ptrVectorResize)(vector *);
 
 
-void myDynamicArr();
+};
+// void vector_init(vec) vector vec;
+
+#define VECTOR_INIT(vec) vector vec;\
+ vector_init(&vec)
+
+
+
 
 int main(void)
 {
 
   
-  myDynamicArr();
 
  
 }
 
-void myDynamicArr()
-{
-  int* ptr;
-  int i;
-  int size = 16;
+void vector_init(vector *v){
+  v->ptrVectorSize = size;
+  v->ptrVectorCapacity = capacity;
+  // v->ptrVectorIsEmpty = is_empty;
+  // v->ptrVectorAtIndex = at;
+  // v->ptrVectorPush = push;
+  // v->ptrVectorInsert = insert;
+  // v->ptrVectorPrepend = prepend;
+  // v->ptrVectorPop = pop;
+  // v->ptrVectorDelete = delete;
+  // v->ptrVectorRemoveItem = vec_remove;
+  // v->ptrVectorFind = find;
+  v->ptrVectorResize = resize;
 
-
-
-  printf("Enter size of elements:");
-  scanf("%d", &size);
-
-  ptr = (int*)calloc(size , sizeof(int));
-
-
-  if (ptr == NULL) {
-        printf("Memory not allocated.\n");
-        exit(0);
-    }
-  else{
-
-    srand(0);
-
-    for ( i = 0; i < size; ++i)
-    {
-      ptr[i] = rand();
-    }
-    
-
-    printf("The elements of the array are: ");
-        for (int j = 0; j < size; ++j) {
-            printf("%d, ", ptr[j]);
-        }
-        printf("\n");
-
-    int prevSize = size;
-
-     printf("Enter size of elements:");
-     scanf("%d", &size);
-
-     int* temp = ptr;
-
-     ptr = realloc(ptr, size * sizeof(int));
-
-     if (!ptr) {
-        printf("Memory Re-allocation failed.");
-        ptr = temp;
-    }
-    else {
-        srand(0);
-
-        printf("Memory successfully re-allocated using "
-               "realloc.\n");
-        for (i = prevSize; i < size; i++)
-        {
-          ptr[i] = rand();
-        }
-    }
-
-     printf("The new elements of the array are: ");
-          for (int k = 0 ; k < size; ++k) {
-              printf("%d, ", ptr[k]);
-          }
-          printf("\n");
-
-  }
-    
+  v->vectorList.capacity = VECTOR_INIT_CAPACITY;
+  v->vectorList.size = 0;
+  v->vectorList.items = malloc(sizeof(void*) * v->vectorList.capacity);
   
 }
+
+int size(vector* v){
+  return v->vectorList.size;
+}
+
+int capacity(vector* v){
+  return v->vectorList.capacity;
+}
+
+int resize(vector* v, int capacity)
+{
+
+  int status = UNDEFINE;
+  if(v)
+  {
+      void **items = realloc(v->vectorList.items, sizeof(void*) * capacity);
+      if (items)
+      {
+        v->vectorList.items = items;
+        v->vectorList.capacity = capacity;
+        status = SUCCESS;
+      }
+      
+  }
+  return status;
+
+}
+
+// int is_empty(vector* v){
+//   return 0;
+// }
+  
+
+  
