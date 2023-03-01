@@ -5,3 +5,6 @@ hello.dSYM
 arrays/vector
 arrays/vector.dSYM/Contents/Info.plist
 arrays/vector.dSYM/Contents/Resources/DWARF/vector
+lists/sLinkedList
+lists/sLinkedList.dSYM/Contents/Info.plist
+lists/sLinkedList.dSYM/Contents/Resources/DWARF/sLinkedList
