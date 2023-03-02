@@ -9,32 +9,26 @@ typedef struct Node{
   int data;
   struct Node* next;
 }Node;
-int listSize;
+int listSize = 0;
 struct Node *head;
+// struct Node *tail;
 
-void createSLinkedList(int initalData){
-  struct Node *newnode, *temp;
-  newnode = (struct Node*)malloc(sizeof(struct Node));
-  if (newnode == NULL)
+
+void createSLinkedList(){
+
+  head = (struct Node*)malloc(sizeof(struct Node));
+  if (head == NULL)
   {
     assert(0);
   }
+  listSize = 1;
   
-  newnode->data = initalData;
-  newnode->next = NULL;
-  if(head == NULL){
-    head = newnode;
-    
-  }
-  else {
-    // temp = head;
-    // while (temp->next != NULL)
-    // {
-    //   temp= temp->next;
-    // }
-    // temp->next = newnode;
-    assert(0);
-  }
+  head->data = listSize;
+  head->next = NULL;
+ 
+  
+ 
+  
 }
 
 int size();
@@ -42,21 +36,38 @@ bool is_empty();
 int value_at(int index);
 void pushFront(int newData);
 int popFront();
+void pushBack(int newData);
+int popBack();
+int front();
+int back();
 
 int main(void)
 {
-  createSLinkedList(6);
-  listSize = 0;
-  pushFront(5);
-  pushFront(4);
-  printf("pop value is %d\n", popFront());
+  createSLinkedList();
+  srand(0);
+  for (int i = 0; i < 10; i++)
+  {
+    pushFront(rand());
+  }
+
+  pushBack(10);
+  printf("size of list is: %d\n", size());
+  printf("value at index 12: %d\n", value_at(12));
+
+  printf("front value is %d\n", front());
+  
+  printf("pop front value is %d\n", popFront());
+  printf(" back value is %d\n", back());
+
+  printf("pop back value is %d\n", popBack());
+
 }
 
 int size(){
   return listSize;
 }
 bool is_empty(){
-  if (head == NULL)
+  if (head == NULL || listSize == 0)
   {
     return true;
   }
@@ -64,8 +75,10 @@ bool is_empty(){
 }
 
 int value_at(int index){
+  assert(index <= listSize);
+
   struct Node *current = head;
-  int count = 0;
+  int count = 1;
 
   while (current != NULL)
   {
@@ -74,15 +87,15 @@ int value_at(int index){
     }
     count++;
     current = current->next;
-
+    assert(count <= listSize);
+    
   }
   
-  assert(0);
 }
 
 void pushFront(int newData){
    
-   struct Node *newnode, *temp;
+   struct Node *newnode;
   newnode = (struct Node*)malloc(sizeof(struct Node));
   if (newnode == NULL)
   {
@@ -93,6 +106,7 @@ void pushFront(int newData){
   newnode->next = head->next;
 
   head->next = newnode;
+  listSize++;
 }
 int popFront(){
   if (is_empty())
@@ -110,7 +124,40 @@ int popFront(){
   head->next = temp;
 
   }
-  
+  listSize--;
   return value;
 
+}
+void pushBack(int newData){
+  struct Node *current = head;
+  struct Node *temp = (struct Node*)malloc(sizeof(struct Node*));
+  assert(temp != NULL);
+  
+  while (current->next != NULL)
+  {
+    current = current->next;
+  }
+
+  temp->data = newData;
+  current->next = temp;
+  listSize++;
+  
+}
+int popBack(){
+  struct Node* current = head;
+  struct Node *prev;
+   while (current->next != NULL)
+  {
+    
+    current = current->next;
+  }
+  int value = current->data;
+  free(current);
+  return value;
+}
+int front(){
+  return value_at(2);
+}
+int back(){
+  return value_at(listSize);
 }
