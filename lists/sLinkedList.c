@@ -40,6 +40,9 @@ void pushBack(int newData);
 int popBack();
 int front();
 int back();
+void insert(int index, int data);
+void printList();
+void erase(int index);
 
 int main(void)
 {
@@ -51,6 +54,19 @@ int main(void)
   }
 
   pushBack(10);
+  pushBack(10);
+  pushBack(10);
+  pushBack(10);
+  pushBack(10);
+
+  pushBack(10);
+  pushBack(10);
+  pushBack(11);
+
+
+  insert(6, 56);
+  // erase(15);
+  printList();
   printf("size of list is: %d\n", size());
   printf("value at index 12: %d\n", value_at(12));
 
@@ -155,9 +171,63 @@ int popBack(){
   free(current);
   return value;
 }
+
 int front(){
   return value_at(2);
 }
+
 int back(){
   return value_at(listSize);
+}
+
+void insert(int index, int data){
+  assert(index <= listSize);
+
+  struct Node *current = head;
+  struct Node *newNode = (struct Node*)malloc(sizeof(struct Node*));
+  assert(newNode != NULL);
+  int count = 1;
+
+  while (current != NULL)
+  {
+    if(count == index){
+        newNode->data = data;
+        newNode->next = current->next;
+        current->next = newNode;
+        return;
+    }
+    current = current->next;
+    count++;
+  }
+}
+
+void printList(){
+  struct Node* temp = head;
+  printf("The elements of the list are: ");
+  for (; temp != NULL; temp=temp->next)
+  {
+    printf("%d ", temp->data);
+  }
+  printf("\n");
+}
+
+void erase(int index){
+  assert(index <= listSize);
+  struct Node *current = head;
+  struct Node *prev;
+
+  int count = 1;
+
+  while (current != NULL)
+  {
+    if(count == index){
+        prev->next = current->next;
+        free(current);
+        listSize--;
+        return;
+    }
+    prev = current;
+    current = current->next;
+    count++;
+  }
 }
