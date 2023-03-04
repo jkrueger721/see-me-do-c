@@ -9,25 +9,23 @@ typedef struct Node{
   int data;
   struct Node* next;
 }Node;
+
 int listSize = 0;
 struct Node *head;
-// struct Node *tail;
+struct Node *tail;
 
 
-void createSLinkedList(){
+void createSLinkedList() {
 
-  head = (struct Node*)malloc(sizeof(struct Node));
-  if (head == NULL)
-  {
-    assert(0);
-  }
+  head = malloc(sizeof(*head));
+  assert(head != NULL);
+  tail = malloc(sizeof(*tail));
+  assert(tail != NULL);
+
   listSize = 1;
   
-  head->data = listSize;
-  head->next = NULL;
- 
-  
- 
+  head->next = tail;
+  tail->next = tail;
   
 }
 
@@ -43,6 +41,7 @@ int back();
 void insert(int index, int data);
 void printList();
 void erase(int index);
+// int value_n_from_end(int index);
 
 int main(void)
 {
@@ -83,7 +82,7 @@ int size(){
   return listSize;
 }
 bool is_empty(){
-  if (head == NULL || listSize == 0)
+  if (head->next == tail)
   {
     return true;
   }
@@ -111,24 +110,23 @@ int value_at(int index){
 
 void pushFront(int newData){
    
-   struct Node *newnode;
-  newnode = (struct Node*)malloc(sizeof(struct Node));
-  if (newnode == NULL)
-  {
-    assert(0);
-  }
+  struct Node *newnode;
+  newnode = malloc(sizeof(*newnode));
+  assert(newnode != NULL);
   newnode->data = newData;
-
+  if (head->next == tail)
+  {
+    tail->next = newnode;
+  }
+  
   newnode->next = head->next;
 
   head->next = newnode;
   listSize++;
 }
 int popFront(){
-  if (is_empty())
-  {
-    assert(0);
-  }
+
+  assert(!is_empty());
 
   int value = head->next->data;
   struct Node *temp = head->next->next;
@@ -144,6 +142,7 @@ int popFront(){
   return value;
 
 }
+
 void pushBack(int newData){
   struct Node *current = head;
   struct Node *temp = (struct Node*)malloc(sizeof(struct Node*));
@@ -160,24 +159,24 @@ void pushBack(int newData){
   
 }
 int popBack(){
-  struct Node* current = head;
-  struct Node *prev;
-   while (current->next != NULL)
-  {
-    
-    current = current->next;
-  }
-  int value = current->data;
-  free(current);
+
+  struct Node *temp;
+  
+  temp = tail->next;
+  int value = temp->data;
+
+  tail->next = tail->next->next;
+
+  free(temp);
   return value;
 }
 
 int front(){
-  return value_at(2);
+  return head->next->data;
 }
 
 int back(){
-  return value_at(listSize);
+  return tail->next->data;
 }
 
 void insert(int index, int data){
@@ -188,7 +187,7 @@ void insert(int index, int data){
   assert(newNode != NULL);
   int count = 1;
 
-  while (current != NULL)
+  while (current != tail)
   {
     if(count == index){
         newNode->data = data;
@@ -201,15 +200,6 @@ void insert(int index, int data){
   }
 }
 
-void printList(){
-  struct Node* temp = head;
-  printf("The elements of the list are: ");
-  for (; temp != NULL; temp=temp->next)
-  {
-    printf("%d ", temp->data);
-  }
-  printf("\n");
-}
 
 void erase(int index){
   assert(index <= listSize);
@@ -218,9 +208,9 @@ void erase(int index){
 
   int count = 1;
 
-  while (current != NULL)
+  while (current != tail)
   {
-    if(count == index){
+    if(count == index ){
         prev->next = current->next;
         free(current);
         listSize--;
