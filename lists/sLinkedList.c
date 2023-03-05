@@ -41,7 +41,7 @@ int back();
 void insert(int index, int data);
 void printList();
 void erase(int index);
-// int value_n_from_end(int index);
+void reverse();
 
 int main(void)
 {
@@ -161,11 +161,15 @@ void pushBack(int newData){
 int popBack(){
 
   struct Node *temp;
-  
+  struct Node* current = head;
   temp = tail->next;
   int value = temp->data;
-
-  tail->next = tail->next->next;
+  while (current != temp)
+  {
+     tail->next = current->next;
+  }
+  
+ 
 
   free(temp);
   return value;
@@ -220,4 +224,19 @@ void erase(int index){
     current = current->next;
     count++;
   }
+}
+void reverse(){
+ struct Node* temp;
+ struct Node* current = head;
+ struct Node* rev = NULL;
+
+ while (current != NULL)
+ {
+   temp = current->next;
+   current->next = rev;
+   rev = current;
+   current = temp;
+ }
+ 
+
 }
