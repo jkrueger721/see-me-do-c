@@ -1,0 +1,12 @@
+int size();
+bool is_empty();
+int value_at(int index);
+void pushFront(int newData);
+int popFront();
+void pushBack(int newData);
+int popBack();
+int front();
+int back();
+void insert(int index, int data);
+void erase(int index);
+void createSLinkedList();

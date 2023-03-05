@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdbool.h>
+#include "sLinkedList.h"
 
 
 
@@ -27,55 +28,6 @@ void createSLinkedList() {
   head->next = tail;
   tail->next = tail;
   
-}
-
-int size();
-bool is_empty();
-int value_at(int index);
-void pushFront(int newData);
-int popFront();
-void pushBack(int newData);
-int popBack();
-int front();
-int back();
-void insert(int index, int data);
-void printList();
-void erase(int index);
-void reverse();
-
-int main(void)
-{
-  createSLinkedList();
-  srand(0);
-  for (int i = 0; i < 10; i++)
-  {
-    pushFront(rand());
-  }
-
-  pushBack(10);
-  pushBack(10);
-  pushBack(10);
-  pushBack(10);
-  pushBack(10);
-
-  pushBack(10);
-  pushBack(10);
-  pushBack(11);
-
-
-  insert(6, 56);
-  // erase(15);
-  printList();
-  printf("size of list is: %d\n", size());
-  printf("value at index 12: %d\n", value_at(12));
-
-  printf("front value is %d\n", front());
-  
-  printf("pop front value is %d\n", popFront());
-  printf(" back value is %d\n", back());
-
-  printf("pop back value is %d\n", popBack());
-
 }
 
 int size(){
