@@ -1,0 +1,11 @@
+int size(vector* v);
+int capacity(vector* v);
+int resize(vector* v);
+int push(vector* v, void* item);  
+int at(vector* v , void* item);
+int is_empty(vector* v);
+int prepend(vector* v , void* item);
+int insert(vector* v , void* item, int pos);
+int pop(vector* v);
+int find(vector* v, void* item);
+int removeAll(vector* v , void* item);

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "vector.h"
 
 #define VECTOR_INIT_CAPACITY 6
 #define UNDEFINE  -1

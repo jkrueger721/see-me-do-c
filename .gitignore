@@ -9,3 +9,5 @@ lists/sLinkedList
 lists/sLinkedList.dSYM/Contents/Info.plist
 lists/sLinkedList.dSYM/Contents/Resources/DWARF/sLinkedList
 lists/sLinkedList.o
+hashtable
+hashtable.dSYM/Contents/Info.plist

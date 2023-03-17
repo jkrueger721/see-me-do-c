@@ -1,47 +1,34 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct item {
-  int key;
-  int value;
-}item;
 
-typedef struct hashTable_item {
-    int flag;
-     /*
-     * flag = 0 : data does not exist
-     * flag = 1 : data exists
-     * flag = 2 : data existed at least once
-    */
-    struct item *data;
-}hashTable_item;
-struct hashtable_item *array = malloc(sizeof(struct hashTable_item));
-int max = 10;
+const int max = 10;
 int size = 0;
 
+int valueArray[max]={NULL};
 
-void hash(k, v){
+int hash(int k, int m){
 
-  int index = k % max;
+   int h;
+   do
+   {
+      h = k % m;
+      h++;
+   } while (valueArray[h] != NULL && h <= max);
+   return h;
 
-  struct item* new_item = (struct item*)malloc(sizeof(struct item));
-  new_item->key = k;
-  new_item->value = v;
-      
-} 
-
-void init_array()
-{
-    int i;
-    for (i = 0; i < max; i++) 
-    {
-	array[i].flag = 0;
-	array[i].data = NULL;
-    }
+}
+void add(int k, int v){
+  int index;
+  index = hash(k,max);
+  valueArray[index] = v;
 }
 
 int main(void)
 {
-  
+  add(34,54);
+  add(23,45);
+  add(31,456);
+  printf("%d \n", hash(5435234, max));
 }
 
