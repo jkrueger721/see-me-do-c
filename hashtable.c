@@ -7,7 +7,6 @@ const int max = 10;
 int size = 0;
 
 int valueArray[max]={NULL};
-int hashArray[max]={NULL};  
 
 int hash(int k){
 
@@ -26,6 +25,11 @@ int rehash(int key)
 void add(int k, int v){
   int index;
   index = hash(k);
+  while (valueArray[index] != NULL)
+  {
+    index = rehash(index);
+  }
+  
   valueArray[index] = v;
 }
 
@@ -56,15 +60,26 @@ int get(int key){
   return -1;
 }
 
-void remove(int key){
+
+void removek(int key){
   int h = hash(key);
   valueArray[h] = NULL;
 }
 
 int main(void)
 {
-  add(34,54);
-  add(23,45);
-  add(31,456);
+  add(3,54);
+  add(4,45);
+  add(2,456);
+  add(12,457);
+
+  removek(12);
+
+
+  for (int i = 0; i < max; i++)
+  {
+    printf("%d , %d \n", i , valueArray[i]);
+  }
+  
 }
 
