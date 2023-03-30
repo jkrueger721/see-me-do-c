@@ -18,6 +18,28 @@ typedef struct BTSnode {
   
 }
 
+int getMin(BTSnode* root){
+  if(root->left == NULL){
+    printf("Error: tree is empty \n");
+    return -1;
+  }
+  while(root->left != NULL){
+    root = root->left;
+  }
+  return root->data;
+}
+
+int getMax(BTSnode* root){
+  if(root->right == NULL){
+    printf("Error: tree is empty \n");
+    return -1;
+  }
+  while(root->right != NULL){
+    root = root->right;
+  }
+  return root->data;
+}
+
 bool search(BTSnode* root, int data){
   if(root == NULL) return false;
   else if(root->data == data) return true;
@@ -37,6 +59,7 @@ BTSnode* insert(BTSnode* root, int data){
   }
   return root;
 }
+
 int main(void){
    BTSnode* rootPtr = NULL;
 
