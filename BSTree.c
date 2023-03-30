@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+int MAX(int a, int b) { return a > b ? a : b; }
 
-typedef struct BTSnode {
+typedef struct BSTnode {
   int data;
-  struct BTSnode* right;
-  struct BTSnode* left;
-} BTSnode;
+  struct BSTnode* right;
+  struct BSTnode* left;
+} BSTnode;
 
- BTSnode* getNewNode(int data){
-  BTSnode* newNode = ( BTSnode*)malloc(sizeof( BTSnode));
+ BSTnode* getNewNode(int data){
+  BSTnode* newNode = ( BSTnode*)malloc(sizeof( BSTnode));
   newNode->data = data;
   newNode->left , newNode->right = NULL;
   
@@ -18,7 +19,7 @@ typedef struct BTSnode {
   
 }
 
-int getMin(BTSnode* root){
+int getMin(BSTnode* root){
   if(root->left == NULL){
     printf("Error: tree is empty \n");
     return -1;
@@ -29,7 +30,7 @@ int getMin(BTSnode* root){
   return root->data;
 }
 
-int getMax(BTSnode* root){
+int getMax(BSTnode* root){
   if(root->right == NULL){
     printf("Error: tree is empty \n");
     return -1;
@@ -39,15 +40,21 @@ int getMax(BTSnode* root){
   }
   return root->data;
 }
+int findHeight(BSTnode* root){
+  if(root == NULL){
+    return -1;
+  }
+  return MAX(findHeight(root->left), findHeight(root->right)) + 1;
+}
 
-bool search(BTSnode* root, int data){
+bool search(BSTnode* root, int data){
   if(root == NULL) return false;
   else if(root->data == data) return true;
   else if(data <= root->data) return search(root->left, data);
   else return search(root->right, data);
 }
 
-BTSnode* insert(BTSnode* root, int data){
+BSTnode* insert(BSTnode* root, int data){
   if(root == NULL){
     root = getNewNode( data);
   }
@@ -61,6 +68,6 @@ BTSnode* insert(BTSnode* root, int data){
 }
 
 int main(void){
-   BTSnode* rootPtr = NULL;
+   BSTnode* rootPtr = NULL;
 
 }
