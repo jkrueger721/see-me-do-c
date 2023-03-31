@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 int MAX(int a, int b) { return a > b ? a : b; }
+int nodeCount = 0;
 
 typedef struct BSTnode {
   int data;
@@ -15,6 +16,8 @@ typedef struct BSTnode {
   newNode->data = data;
   newNode->left , newNode->right = NULL;
   
+  nodeCount++;
+
   return newNode;
   
 }
@@ -45,6 +48,10 @@ int findHeight(BSTnode* root){
     return -1;
   }
   return MAX(findHeight(root->left), findHeight(root->right)) + 1;
+}
+
+int getNodeCount(){
+  return nodeCount;
 }
 
 bool search(BSTnode* root, int data){
