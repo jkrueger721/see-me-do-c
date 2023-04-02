@@ -11,6 +11,7 @@ typedef struct BSTnode {
   struct BSTnode* left;
 } BSTnode;
 
+
  BSTnode* getNewNode(int data){
   BSTnode* newNode = ( BSTnode*)malloc(sizeof( BSTnode));
   newNode->data = data;
@@ -40,7 +41,7 @@ void printTreeElementsInOrder(BSTnode* root){
   }
   printTreeElementsInOrder(root->left);
 
-  printf("%d", root->data);
+  printf("%d \n", root->data);
 
   printTreeElementsInOrder(root->right);
 }
@@ -76,6 +77,7 @@ bool search(BSTnode* root, int data){
 BSTnode* insert(BSTnode* root, int data){
   if(root == NULL){
     root = getNewNode( data);
+    return root;
   }
   else if(data <= root->data ){
     root->left = insert(root->left, data);
@@ -87,6 +89,19 @@ BSTnode* insert(BSTnode* root, int data){
 }
 
 int main(void){
-   BSTnode* rootPtr = NULL;
+  BSTnode* rootPtr = NULL;
+
+
+  rootPtr = insert(rootPtr, 35);  
+  rootPtr = insert(rootPtr, 97);  
+  rootPtr = insert(rootPtr, 12);  
+  rootPtr = insert(rootPtr, 17); 
+  rootPtr = insert(rootPtr, 109);
+
+   printf("hello \n");
+
+   printTreeElementsInOrder(rootPtr);
+
+
 
 }
