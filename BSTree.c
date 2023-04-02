@@ -33,6 +33,18 @@ int getMin(BSTnode* root){
   return root->data;
 }
 
+void printTreeElementsInOrder(BSTnode* root){
+  
+  if (root == NULL) {
+    return;
+  }
+  printTreeElementsInOrder(root->left);
+
+  printf("%d", root->data);
+
+  printTreeElementsInOrder(root->right);
+}
+
 int getMax(BSTnode* root){
   if(root->right == NULL){
     printf("Error: tree is empty \n");
