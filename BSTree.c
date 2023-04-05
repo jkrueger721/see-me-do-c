@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -88,6 +89,56 @@ BSTnode* insert(BSTnode* root, int data){
   return root;
 }
 
+bool isBinaySearchTree(BSTnode* root){
+  if(root == NULL){
+    return true;
+  }
+  if (root->left != NULL && getMax(root) > root->data) {
+    return false;
+  }
+  if (root->right != NULL && getMin(root) < root->data) {
+    return false;
+  }
+  if (!isBinaySearchTree(root->left) || !isBinaySearchTree(root->right)) {
+     return false;
+  }
+  return true;
+}
+BSTnode* deleteNode(BSTnode* root, int data){
+    if (root == NULL) {
+      return root;
+    }
+    else if (data <= root->data) {
+      root->left =  deleteNode(root->left,  data);
+    }else if (data >= root->data) {
+      root->right = deleteNode(root->right, data);
+    }else{
+      if (root->left == NULL && root->right == NULL) {
+        free(root);
+        root = NULL;
+      
+      }
+    else if (root->left == NULL) {
+      BSTnode* temp = root;
+      root = root->right;
+      free(temp);
+      
+    }
+    else if (root->right == NULL) {
+      BSTnode* temp = root;
+      root = root->left;
+      free(temp);
+      
+    }
+    else{
+      BSTnode* temp = getMin(root->right);
+      root->data = temp->data;
+      root->right = deleteNode(root->right,temp->data );
+    }
+    return root;    
+  }
+}
+
 int main(void){
   BSTnode* rootPtr = NULL;
 
@@ -98,7 +149,11 @@ int main(void){
   rootPtr = insert(rootPtr, 17); 
   rootPtr = insert(rootPtr, 109);
 
+  printf("is %d in tree? : %d \n", 109, search(rootPtr, 1));
+
    printf("hello \n");
+
+   printf("Is binary earch tree %d \n", isBinaySearchTree(rootPtr));
 
    printTreeElementsInOrder(rootPtr);
 
