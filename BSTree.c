@@ -24,6 +24,16 @@ typedef struct BSTnode {
   
 }
 
+void deleteTree(BSTnode* root){
+  if (root == NULL) {
+    return;
+  }
+  deleteTree(root->left);
+  deleteTree(root->right);
+
+  free(root);
+}
+
 int getMin(BSTnode* root){
   if(root->left == NULL){
     printf("Error: tree is empty \n");
