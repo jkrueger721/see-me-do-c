@@ -139,6 +139,29 @@ BSTnode* deleteNode(BSTnode* root, int data){
   }
 }
 
+BSTnode* getSuccessor(BSTnode* root , int data){
+  BSTnode* current = search(root, data);
+  if(current == NULL) return current;
+
+  if (root->left != NULL) {
+      BSTnode* temp = getMin(root->right);
+      return temp;
+  }else {
+    BSTnode* successor = NULL;
+    BSTnode* ancestor = root;
+    while (ancestor != current) {
+      if (current->data < ancestor->data) {
+        successor = ancestor;
+        ancestor = ancestor->left;
+      }
+      else {
+        ancestor = ancestor->right;
+      }
+    }
+    return successor;
+  }
+}
+
 int main(void){
   BSTnode* rootPtr = NULL;
 
