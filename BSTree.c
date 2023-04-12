@@ -34,15 +34,15 @@ void deleteTree(BSTnode* root){
   free(root);
 }
 
-int getMin(BSTnode* root){
+BSTnode* getMin(BSTnode* root){
   if(root->left == NULL){
     printf("Error: tree is empty \n");
-    return -1;
+    return NULL;
   }
   while(root->left != NULL){
     root = root->left;
   }
-  return root->data;
+  return root;
 }
 
 void printTreeElementsInOrder(BSTnode* root){
