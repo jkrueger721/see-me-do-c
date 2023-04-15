@@ -84,6 +84,21 @@ int extractMax(int arr[], int *n){
     return max_item;
 }
 
+void heapSort(int arr[], int n){
+  buildHeap(arr, n);
+
+  for (int i = n - 1; i >= 0; i--) {
+    swap(&arr[0], &arr[i]);
+
+    heapify(arr, i, 0);
+  }
+}
+void printArray(int arr[]){
+  for (int i = 0; i < size - 1;i++) {
+    printf("%d\n", arr[i]);
+  }
+}
+
 int main(void){
   
 }
