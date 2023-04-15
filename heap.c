@@ -14,6 +14,10 @@ void swap(int* a , int* b ){
   *a = temp;
 }
 
+int getSize(){
+  return size;
+}
+ 
 int parent(int n){
   return (n - 1) / 2;
 }
@@ -57,6 +61,7 @@ void insert(int arr[],int n, int *index){
    }  
    arr[*index] = n;
     *index++;
+     size++;
 
     int i = *index - 1;
   while(i != 0 && arr[parent(i)] < arr[i]){
@@ -64,6 +69,19 @@ void insert(int arr[],int n, int *index){
     i = parent(i);
   }
 
+}
+
+int extractMax(int arr[], int *n){
+   int max_item = arr[0];
+
+    // replace the first item with the last item
+    arr[0] = arr[*n - 1];
+    *n = *n - 1;
+
+    // maintain the heap property by heapifying the 
+    // first item
+    heapify(arr, 0, *n);
+    return max_item;
 }
 
 int main(void){
