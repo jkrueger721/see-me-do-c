@@ -31,7 +31,13 @@ void heapify(int arr[], int n, int i){
   heapify(arr, n, max);
 }
 
-
+void buildHeap(int arr[], int n ){
+  int lastNonLeafNode = (n / 2) - 1;
+  
+  for (int i = 0; i >= 0; i--) {
+    heapify(arr, n, i);
+  }
+}
 
 
 int main(void){
