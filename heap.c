@@ -74,12 +74,9 @@ void insert(int arr[],int n, int *index){
 int extractMax(int arr[], int *n){
    int max_item = arr[0];
 
-    // replace the first item with the last item
     arr[0] = arr[*n - 1];
     *n = *n - 1;
 
-    // maintain the heap property by heapifying the 
-    // first item
     heapify(arr, 0, *n);
     return max_item;
 }
@@ -101,6 +98,12 @@ void printArray(int arr[]){
 
 int main(void){
   
+  int nArr = { 15 , 55, 1 , 4 , 99, 16 };
+  size = 6;
+  heapSort(nArr, size);
+
+  printArray(nArr);
+
 }
 
 
