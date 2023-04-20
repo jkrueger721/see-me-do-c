@@ -12,6 +12,7 @@ void printList(node* node)
         printf("%d ", node->data);
         node = node->next;
     }
+  printf("\n");
 }
 node* sortedMerge(node* a, node* b);
 void splitFrontBack(node* source, node** front, node** back);
@@ -35,14 +36,17 @@ int main(){
 
   node* a = NULL;
 
-    push(&a, 15);
-    push(&a, 10);
-    push(&a, 5);
-    push(&a, 20);
-    push(&a, 3);
-    push(&a, 2);
+  srand(0);
+  for (int i = 0; i < 50; i++) {
+    push(&a, rand());
+  }
 
+  printf("before sort \n");
+  printList(a);
+  
   myMergeSort(&a);
+  
+  printf("after sort \n");
   printList(a);
   
   return EXIT_SUCCESS;
@@ -62,7 +66,7 @@ void splitFrontBack(node* source, node** front, node** back){
       slow = slow->next;
     }
   }
-  *front = source;
+    *front = source;
     *back = slow->next;
     slow->next = NULL;
 }
