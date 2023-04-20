@@ -29,3 +29,21 @@ int main(){
 
   return EXIT_SUCCESS;
 }
+
+void splitFrontBack(node* source, node** front, node** back){
+  node* fast;
+  node* slow;
+
+  slow = source;
+  fast = source->next;  
+
+  while (fast != NULL) {
+    fast = fast->next;
+    if (fast != NULL) {
+      fast = fast->next;
+      slow = slow->next;
+    }
+  }
+}
+
+
