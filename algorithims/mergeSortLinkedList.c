@@ -6,7 +6,7 @@ typedef struct{
  struct node* next;
 } node;
 
-struct node* sortedMerge(node* a, node* b);
+node* sortedMerge(node* a, node* b);
 void splitFrontBack(node* source, node** front, node** back);
 
 void push(node** head_ref, int new_data)
@@ -46,4 +46,23 @@ void splitFrontBack(node* source, node** front, node** back){
   }
 }
 
+node* sortedMerge(node* a, node* b){
+  node* result = NULL;
+
+  if (a == NULL) {
+     return (b);
+  }else if (b == NULL) {
+    return (a);
+  }
+
+  if (a->data <= b->data) {
+    result = a;
+    result->next = sortedMerge(a->next, b );
+  }else  {
+    result = b;
+    result->next = sortedMerge(a, b->next);
+  }
+
+  return result;
+}
 
