@@ -6,9 +6,16 @@ typedef struct{
  struct node* next;
 } node;
 
+void printList(node* node)
+{
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+}
 node* sortedMerge(node* a, node* b);
 void splitFrontBack(node* source, node** front, node** back);
-
+void myMergeSort(node** headRef);
 void push(node** head_ref, int new_data)
 {
     /* allocate node */
@@ -26,7 +33,18 @@ void push(node** head_ref, int new_data)
 
 int main(){
 
+  node* a = NULL;
 
+    push(&a, 15);
+    push(&a, 10);
+    push(&a, 5);
+    push(&a, 20);
+    push(&a, 3);
+    push(&a, 2);
+
+  myMergeSort(&a);
+  printList(a);
+  
   return EXIT_SUCCESS;
 }
 
@@ -44,6 +62,9 @@ void splitFrontBack(node* source, node** front, node** back){
       slow = slow->next;
     }
   }
+  *front = source;
+    *back = slow->next;
+    slow->next = NULL;
 }
 
 node* sortedMerge(node* a, node* b){
@@ -64,5 +85,22 @@ node* sortedMerge(node* a, node* b){
   }
 
   return result;
+}
+
+void myMergeSort(node** headRef){
+  node* head = *headRef;  
+  node* a;
+  node* b;
+
+  if (head == NULL || head->next == NULL) {
+    return;
+  }
+  splitFrontBack(head, &a, &b);
+
+  myMergeSort(&a);
+  myMergeSort(&b);
+
+  *headRef = sortedMerge(a, b);
+
 }
 
