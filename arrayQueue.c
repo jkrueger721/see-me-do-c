@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "arrayQueue.h"
 
 #define MAXSIZE 10
 
@@ -14,7 +15,12 @@ bool isEmpty(){
 
 int main(void)
 {
-  printf("Is queue empty: %d \n", isEmpty());
+  enQueue(5);
+  enQueue(6);
+
+  printf("deQueue: %d \n", deQueue());
+
+
 }
 
 void updateWrite(){
