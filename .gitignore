@@ -23,3 +23,7 @@ algorithims/mergeSortLinkedList.dSYM/Contents/Resources/DWARF/mergeSortLinkedLis
 algorithims/mergeSortArray
 algorithims/mergeSortArray.dSYM/Contents/Info.plist
 algorithims/mergeSortArray.dSYM/Contents/Resources/DWARF/mergeSortArray
+algorithims/quickSortArray
+algorithims/quickSortArray.dSYM/Contents/Info.plist
+.gitignore
+algorithims/quickSortArray.dSYM/Contents/Resources/DWARF/quickSortArray
