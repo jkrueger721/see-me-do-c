@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 #define MAXV 100
 
@@ -10,9 +11,10 @@ typedef struct edgenode{
 
 typedef struct {
   edgenode* edges[MAXV];
+  int degree[MAXV + 1];
   int nvertices;
   int nedges;
-  int directed;
+  bool directed;
 } graph;
 
 
