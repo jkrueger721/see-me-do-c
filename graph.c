@@ -67,6 +67,21 @@ void read_graph(graph* g, bool directed){
   }
 }
 
+void print_graph(graph* g){
+  int i;
+  edgenode* p;
+
+  for ( i = 1; i <= g->nvertices; i++) {
+    printf("%d: ", i);
+    p = g->edges[i];
+    while (p != NULL) {
+      printf(" %d", p->y);
+      p = p->next;
+    }
+    printf("\n");
+  }
+}
+
 int main(){
   
 }
