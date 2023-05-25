@@ -4,11 +4,21 @@
 
 
 #define MAXV 100
+#define TREE 0
+#define BACK 1
+#define FORWARD 2
+#define CROSS 3
 
 bool processed[MAXV + 1];
 bool discovered[MAXV + 1];
 int parent[MAXV + 1];
+int reachable_ancestor[MAXV + 1];
+int tree_out_degree[MAXV + 1];
 
+bool finished = false;
+int time;
+int entry_time[MAXV + 1];
+int exit_time[MAXV + 1];
 typedef struct {
   int q[MAXV + 1];
   int first;
@@ -134,16 +144,115 @@ void print_graph(graph* g){
     printf("\n");
   }
 }
+
+int edge_classification(int x, int y){
+  if (parent[y] == x) {
+    return(TREE);
+  }
+  if (discovered[y] && !processed[y]) {
+    return(BACK);
+  }
+  if (processed[y] && (entry_time[y] > entry_time[x])) {
+    return(FORWARD);
+  }
+  if (processed[y] && (entry_time[y] < entry_time[x])) {
+    return(CROSS);
+  }
+  printf("Warning: self loop (%d, %d)\n", x, y);
+}
+
 void process_edge(int x, int y){
+  int class;
+  
+  class = edge_classification(x, y);
+
+  if (class == TREE) {
+    tree_out_degree[x] = tree_out_degree[x] + 1;
+  }
+  if ((class == BACK) && (parent[x] != y)) {
+    if (entry_time[y] < entry_time[reachable_ancestor[x]]) {
+      reachable_ancestor[x] = y;
+    }
+  }
   printf("processed edge (%d, %d)\n", x, y);
 }
 void process_vertex_late(int v){
+  bool root;
+  int time_v;
+  int time_parent;
+
+  if (parent[v] < 1) {
+    if (tree_out_degree[v] > 1) {
+      printf("root articulation vertex: %d\n", v);
+    }
+    return;
+  }
+
+  root = (parent[parent[v]] < 1);
+
+  if(!root) {
+    if (reachable_ancestor[v] == parent[v]) {
+      printf("parent articulation vertex: %d\n", parent[v]);
+    }
+
+    if (reachable_ancestor[v] == v) {
+      printf("bridge articulation vertex: %d\n", parent[v]);
+
+      if (tree_out_degree[v] > 0) {
+        printf("bridge articulation vertex: %d\n", v);
+      }
+    }
+  }
+
+  time_v = entry_time[reachable_ancestor[v]];
+  time_parent = entry_time[reachable_ancestor[parent[v]]];
+
+  if(time_v < time_parent) {
+    reachable_ancestor[parent[v]] = reachable_ancestor[v];
+  }
+  
   printf("processed vertex %d\n", v);
 }
 void process_vertex_early(int v){
+  reachable_ancestor[v] = v;
   printf("processed vertex %d\n", v);
 }
+void depth_first_search(graph* g, int v){
+  edgenode* p;
+  int y;
+  
 
+  if (finished) {
+    return;
+  }
+
+  discovered[v] = true;
+  time = time + 1;
+  entry_time[v] = time;
+
+  process_vertex_early(v);
+
+  p = g->edges[v];
+  while (p != NULL) {
+    y = p->y;
+    if (!discovered[y]) {
+      parent[y] = v;
+      process_edge(v, y);
+      depth_first_search(g, y);
+    }else if ((!processed[y]) || (g->directed)) {
+      process_edge(v, y);
+    }
+    if (finished) {
+      return;
+    }
+    p = p->next;
+  }
+  process_vertex_late(v);
+  time = time + 1;
+  exit_time[v] = time;
+
+  processed[v] = true;
+}
 void breadth_first_search(graph* g, int start){
   queue q;
   int v;
