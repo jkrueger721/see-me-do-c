@@ -313,7 +313,7 @@ int main(){
 
 
   init_search(&g);
-  breadth_first_search(&g, 1);
+  depth_first_search(&g, 1);
 
   
 }
