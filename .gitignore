@@ -14,7 +14,7 @@ hashtable.dSYM/Contents/Info.plist
 algorithims/binarySearch
 algorithims/binarySearch.dSYM/Contents/Info.plist
 algorithims/binarySearch.dSYM/Contents/Resources/DWARF/binarySearch
-BSTree.c
+
 BSTree
 BSTree.dSYM/Contents/Info.plist
 algorithims/mergeSortLinkedList
@@ -29,3 +29,5 @@ algorithims/quickSortArray.dSYM/Contents/Info.plist
 algorithims/quickSortArray.dSYM/Contents/Resources/DWARF/quickSortArray
 graph
 graph.dSYM/Contents/Info.plist
+weightedGraph.dSYM/Contents/Info.plist
+weightedGraph

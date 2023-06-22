@@ -20,7 +20,67 @@ typedef struct {
   bool directed;
 } graph;
 
-int prim(graph* g, int start){
+init_graph(graph *g){
+  int i;
+
+  g->nvertices = 0;
+  g->nedges = 0;
+  g->directed = false;
+
+  for (i = 1; i <= MAXV; i++) {
+    g->degree[i] = 0;
+  }
+
+  for (i = 1; i <= MAXV; i++) {
+    g->edges[i] = NULL;
+  }
+}
+
+void insert_edge(graph* g, int x, int y, bool directed){
+  edgenode* p;
+
+  p = malloc(sizeof(edgenode));
+
+  p->weight = 0;
+  p->y = y;
+  p->next = g->edges[x];
+
+  g->edges[x] = p;
+
+  g->degree[x]++;
+
+  if (directed == false) {
+    insert_edge(g, y, x, true);
+  } else {
+    g->nedges++;
+  }
+}
+
+void insert_vertex(graph* g){
+  if (g->nvertices == MAXV) {
+    printf("Graph has too many vertices\n");
+  } else {
+    g->nvertices++;
+  }
+}
+
+// print_graph(graph *g){
+//   int i;
+//   edgenode* p;
+
+//   for (i = 1; i <= g->nvertices; i++) {
+//     printf("%d: ", i);
+//     p = g->edges[i];
+
+//     while(p != NULL) {
+//       printf(" %d", p->y);
+//       p = p->next;
+//     }
+//     printf("\n");
+//   }
+// }
+
+int prim(graph *g, int start){
   int i; // counter
   edgenode* p; // temporary pointer
   bool intree[MAXV + 1]; // is the vertex in the tree yet?
@@ -73,11 +133,21 @@ int prim(graph* g, int start){
 }
 
 
-int main(int argc, char const *argv[])
+int main(void)
 {
+  graph *g = malloc(sizeof(graph));
+  init_graph(g);
+  insert_edge(g, 1, 2, false);
+  insert_edge(g, 1, 3, false);
+  insert_edge(g, 1, 4, false);
+  insert_edge(g, 2, 3, false);
+  insert_edge(g, 2, 4, false);
+  insert_edge(g, 3, 4, false);
+  print_graph(g);
+
+  printf("%d\n", prim(g, 1));
+
   
-  
-  return 0;
 }
 
 
