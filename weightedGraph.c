@@ -143,7 +143,7 @@ int main(void)
   insert_edge(g, 2, 3, false);
   insert_edge(g, 2, 4, false);
   insert_edge(g, 3, 4, false);
-  print_graph(g);
+  // print_graph(g);
 
   // printf("%d\n", prim(g, 1));
 
