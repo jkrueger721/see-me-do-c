@@ -36,12 +36,12 @@ init_graph(graph *g){
   }
 }
 
-void insert_edge(graph* g, int x, int y, bool directed){
+void insert_edge(graph* g, int x, int y, int weight,  bool directed){
   edgenode* p;
 
   p = malloc(sizeof(edgenode));
 
-  p->weight = 0;
+  p->weight = weight;
   p->y = y;
   p->next = g->edges[x];
 
@@ -137,12 +137,12 @@ int main(void)
 {
   graph *g = malloc(sizeof(graph));
   init_graph(g);
-  insert_edge(g, 1, 2, false);
-  insert_edge(g, 1, 3, false);
-  insert_edge(g, 1, 4, false);
-  insert_edge(g, 2, 3, false);
-  insert_edge(g, 2, 4, false);
-  insert_edge(g, 3, 4, false);
+  insert_edge(g, 1, 2, 4, false);
+  insert_edge(g, 1, 3, 5, false);
+  insert_edge(g, 1, 4, 2, false);
+  insert_edge(g, 2, 3, 6, false);
+  insert_edge(g, 2, 4, 8, false);
+  insert_edge(g, 3, 4, 25, false);
   // print_graph(g);
 
   // printf("%d\n", prim(g, 1));
