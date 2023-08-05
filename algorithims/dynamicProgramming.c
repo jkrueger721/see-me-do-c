@@ -5,6 +5,34 @@
 #define UNKNOWN -1
 long f[MAXN + 1];
 
+long fib_ultimate(int n){
+  int i;
+  long back2 = 0, back1 = 1;
+  long next;
+
+  if (n == 0) {
+    return 0;
+  }
+
+  for (i = 2; i <= n; i++) {
+    next = back1 + back2;
+    back2 = back1;
+    back1 = next;
+  }
+  return back1;
+}
+
+long fib_dp(int n){
+  int i;
+  f[0] = 0;  /* counter */
+  f[1] = 1;  /* array for caching values */
+
+  for (i = 2; i <= n; i++) {
+    f[i] = f[i - 1] + f[i - 2];
+  }
+  return f[n];
+}
+
 long fib_c(int n){
   if(f[n] == UNKNOWN){
       f[n] = fib_c(n - 1) + fib_c(n - 2);
@@ -35,7 +63,7 @@ long fib(int n){
 
 int main(int argc, char const *argv[])
 {
-  printf("with cache %ld\n", fib_c_driver(50));
+  printf("with cache %ld\n", fib_ultimate(920));
 
   return 0;
 }
