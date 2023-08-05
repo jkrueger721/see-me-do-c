@@ -19,7 +19,7 @@ long fib_ultimate(int n){
     back2 = back1;
     back1 = next;
   }
-  return back1;
+  return (back1 + back2);
 }
 
 long fib_dp(int n){
@@ -63,7 +63,7 @@ long fib(int n){
 
 int main(int argc, char const *argv[])
 {
-  printf("with cache %ld\n", fib_ultimate(920));
+  printf("with cache %ld\n", fib_ultimate(15000));
 
   return 0;
 }
